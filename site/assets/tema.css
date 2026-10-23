@@ -1,0 +1,84 @@
+/* Protótipo A — «Praça»
+   Letras: Forum (o nome, em maiúsculas como as letras da fachada) + Ibarra Real
+   Nova (títulos e itálicos) + Instrument Sans (texto).
+   Paleta: cal e pedra da fachada, grafite das grades, verde das folhas da árvore da praça
+   (nome do hero e botões), verde-claro da fachada (ícones sobre o grafite).
+   Gesto: a porta — da praça, uma moldura do tamanho de uma porta abre-se até à
+   sala inteira, com o scroll (a foto fica sempre do mesmo tamanho). */
+
+:root {
+  --fundo: #f3efe7;
+  --fundo-2: #e6e0d4;
+  --tinta: #252523;
+  --tinta-2: #5e5a52;
+  --destaque: #4a5a1c;     /* o verde da árvore da praça, na meia-sombra (antes #4a5d4b, do papel de folhas) */
+  --destaque-2: #3a4814;
+  --folha-sol: #7a8526;    /* as folhas ao sol, no alto da copa */
+  --folha-sombra: #2c3a10; /* as folhas na sombra, por baixo */
+  --destaque-claro: #b3c2a8;
+  --escuro: #272725;
+  --escuro-2: #323230;
+  --quartos: #2c2c2a;
+  --claro: #f3efe7;
+  --nome: "Forum", "Times New Roman", serif;
+  --serif: "Ibarra Real Nova", Georgia, serif;
+  --sans: "Instrument Sans", system-ui, sans-serif;
+}
+
+.topo__marca { font-family: var(--nome); text-transform: uppercase; letter-spacing: .08em; font-size: 1.35rem; }
+.rodape__marca { font-family: var(--nome); text-transform: uppercase; letter-spacing: .06em; font-size: 1.6rem; }
+
+/* o nome como as letras da fachada: maiúsculas espaçadas */
+.hero__titulo { text-transform: uppercase; letter-spacing: .03em; font-size: clamp(3.2rem, min(8.5vw, 15svh), 10rem); line-height: .92; }
+/* o nome nos verdes da árvore da praça: as folhas ao sol em cima, a sombra em baixo; sem sombra */
+.hero__titulo { color: var(--destaque); filter: none; }
+.hero__titulo .l {
+  background: linear-gradient(180deg, var(--folha-sol) 8%, var(--destaque) 52%, var(--folha-sombra) 96%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+/* o botão de reservar do hero no mesmo verde */
+.hero__reservar { background: var(--destaque); color: #fff; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 10px 30px -10px rgba(15, 13, 10, .55); }
+.hero__reservar::after { color: currentColor; }
+.hero__reservar:hover { background: var(--destaque-2); }
+.hero__onde { letter-spacing: .22em; color: var(--tinta); text-shadow: none; }
+
+/* ---------- a porta ---------- */
+.porta { position: relative; height: 290vh; }
+.porta__preso { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.porta__foto { position: absolute; inset: 0; }
+.porta__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
+/* a abertura: de uma porta estreita ao centro até ao ecrã inteiro (sem zoom); o vão é o de base.css */
+.porta {
+  --o: min(1, max(0, (var(--p, 0) - .05) * 1.55));
+  --oo: calc(var(--o) * var(--o) * (3 - 2 * var(--o)));
+}
+.porta .vao { --v: var(--oo); --vt: .09; --vr: .35; --vb: .05; --vl: .35; }
+/* o número da porta, por cima dela, como na fachada, e a praça por baixo: presos às faixas do vão,
+   saem com elas */
+.porta .vao b:nth-child(1)::after, .porta .vao b:nth-child(2)::after {
+  position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; color: var(--tinta-2);
+  opacity: calc(1 - var(--oo) * 3);
+}
+.porta .vao b:nth-child(1)::after { content: "165"; bottom: .2rem; font-family: var(--nome); font-size: 1.5rem; letter-spacing: .2em; }
+.porta .vao b:nth-child(2)::after {
+  content: "Praça Luís Ribeiro"; top: 1rem;
+  font-size: .74rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
+}
+.porta__texto {
+  position: absolute; z-index: 2; left: var(--margem); bottom: clamp(2.4rem, 9vh, 6rem); max-width: 34rem; color: #fff;
+  text-shadow: 0 2px 24px rgba(12, 10, 8, .65), 0 0 3px rgba(12, 10, 8, .35);
+  --t: min(1, max(0, (var(--p, 0) - .7) * 5));
+  opacity: var(--t); transform: translate3d(0, calc((1 - var(--t)) * 24px), 0);
+}
+.porta__titulo { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 1.5rem + 3.4vw, 5rem); line-height: 1; margin-bottom: .9rem; }
+.porta__texto p { font-family: var(--serif); font-style: italic; font-size: 1.2rem; line-height: 1.45; }
+
+/* quartos e comodidades em grafite; botões no verde da árvore da praça */
+.comod__item { background: var(--escuro-2); }
+
+@media (max-width: 760px) {
+  .hero__titulo { font-size: 12.6vw; }
+  .porta { height: 240vh; }
+  .porta .vao { --vt: .14; --vr: .33; --vb: .10; --vl: .33; }
+  .porta__foto img { object-position: 40% 50%; }
+}

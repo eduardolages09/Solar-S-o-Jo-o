@@ -1,0 +1,15 @@
+# Material de trabalho que não vai para o repositório (é público):
+# o dossiê tem reviews com nomes de hóspedes e fotos recolhidas das
+# plataformas; o arquivo guarda versões antigas do site; a proposta tem
+# preços e contactos. O site só usa as cópias preparadas em site/assets/.
+dossie/
+arquivo/
+proposta/
+revisao/
+scripts/_regiao/
+scripts/__pycache__/
+
+# sistema
+Thumbs.db
+.DS_Store
+desktop.ini
